@@ -5,6 +5,18 @@ var toString = Object.prototype.toString;
 var named = require('named-regexp').named;
 
 
+function cobody(stream) {
+  return function(cb){
+    var buffers = []
+    stream.on('data', function(chunk){
+      buffers.push(chunk)
+    })
+    stream.on('end', function(){
+      cb(null, Buffer.concat(buffers).toString('utf-8'))
+    })
+  }
+} 
+
 module.exports = function (tmsOption){
 
     tmsOption = tmsOption || {
@@ -40,9 +52,8 @@ module.exports = function (tmsOption){
 
         var body = this.body
         if (!body || toString.call(body) != '[object String]') {
-            return;
+            body = yield cobody(this.body)
         }
-        debug("view-tms");
         var pathLoad = [];
         var matched
 
