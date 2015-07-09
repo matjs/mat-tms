@@ -1,12 +1,17 @@
 {
   "name": "mat-tms",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/matjs/mat-tms.git"
+  },
   "description": "include tms",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "feiyelanghai@gmail.com",
+  "homepage": "https://github.com/matjs/mat-tms",
   "dependencies": {
     "debug": "2.2.0",
     "midway-tms": "0.10.2",
