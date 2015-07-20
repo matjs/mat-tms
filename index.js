@@ -3,6 +3,7 @@ var TMS = require("midway-tms");
 var thunkify = require("thunkify");
 var toString = Object.prototype.toString;
 var named = require('named-regexp').named;
+var Stream = require('stream')
 
 
 function cobody(stream) {
@@ -51,7 +52,10 @@ module.exports = function (tmsOption){
         yield next;
 
         var body = this.body
-        if (!body || toString.call(body) != '[object String]') {
+        if ( body && Buffer.isBuffer(body)){
+            body = body.toString()
+        }
+        else if (body && body instanceof Stream ) {
             body = yield cobody(this.body)
         }
         var pathLoad = [];
