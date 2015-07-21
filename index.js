@@ -57,7 +57,9 @@ module.exports = function (tmsOption){
         }
         else if (body && body instanceof Stream ) {
             body = yield cobody(this.body)
-        }
+        } else if (!body) {
+            return 
+        } 
         var pathLoad = [];
         var matched
 
