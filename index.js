@@ -83,7 +83,7 @@ module.exports = function (tmsOption){
             if(option.url){
                 option.url = "1/" + (option.prefix || "rgn") + "/" + option.url
                 console.log(option.url)
-                pathLoad.push(TMS.getTMS(option.url, "utf8"))
+                pathLoad.push(TMS.getTMS(option.url, option.encoding || "utf8"))
 
             }else{
                 pathLoad.push("");
