@@ -1,6 +1,6 @@
 # mat-tms
 
-  mat读取tms文件 
+  mat读取tms文件，目前是基于filesync-client。
 
 
 ## 安装
@@ -20,7 +20,10 @@ var mat-tms = require('mat-tms')
 mat.task('daily', function () {
   mat.url([/\.html/])
     .use(mat-tms({
-      tmsRegex: /<!--TMS:(?:rgn\/)?(:<url>[^,]*),(:<encoding>[^,]*),\d:TMS-->/ig
+      tmsRegex: /<!--TMS:(:<prefix>rgn)?\/?(:<url>[^,]*),(:<encoding>[^,]*),\d:TMS-->/ig
+    }))
+    .use(mat-tms({
+      tmsRegex: /\{\{tms\("(:<url>[^"]*)","(:<prefix>\w*)"\)}}/ig
     }))
 })
 ```

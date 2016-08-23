@@ -1,8 +1,9 @@
 var debug = require('debug')('mat-tms');
-var TMS = require("midway-tms");
+// var TMS = require("midway-tms");
 var thunkify = require("thunkify");
 var toString = Object.prototype.toString;
 var named = require('named-regexp').named;
+var TMS = require('./libs/tms');
 var Stream = require('stream')
 
 
@@ -26,26 +27,33 @@ module.exports = function (tmsOption){
         // 配置服务器本地目录
         filePath : '/home/tms/',
 
-        // <!--TMS:rgn/tb-fp/2014/mm/atb/index/floor-nav-v2.php,gbk,1:TMS-->
-        tmsRegex : /<!--TMS:(?:rgn\/)?(:<url>[^,]*),(:<encoding>[^,]*),\d:TMS-->/ig
+        // // <!--TMS:rgn/tb-fp/2014/mm/atb/index/floor-nav-v2.php,gbk,1:TMS-->
+        // tmsRegex : /<!--TMS:(:<prefix>rgn)?\/?(:<url>[^,]*),(:<encoding>[^,]*),\d:TMS-->/ig
+
+        // {{tms("atb/h5_db12dumiao.html","alp")}}
+        tmsRegex : /\{\{tms\("(:<url>[^"]*)","(:<prefix>\w*)"\)}}/ig
     }
 
     var tmsRegex = named(tmsOption.tmsRegex);
-    var tms_cache = new TMS(tmsOption);
-    var load = function(path, option, cb){
-        debug("tms uri:" + path)
+
+
+    // var tms_cache = new TMS(tmsOption);
+    
+    // var load = function(path, option, cb){
+    //     debug("tms uri:" + path)
         
-        tms_cache.load(path, option, function(err, succ){
-            if(err){
-                debug("tms err:" + err)
-            }
-            cb(null, err ? "" : succ);
-        });
+
+    //     tms_cache.load(path, option, function(err, succ){
+    //         if(err){
+    //             debug("tms err:" + err)
+    //         }
+    //         cb(null, err ? "" : succ);
+    //     });
        
-    }
+    // }
 
 
-    load = thunkify(load);
+    // load = thunkify(load);
 
     return function *tms(next){
         
@@ -73,7 +81,10 @@ module.exports = function (tmsOption){
             }
             
             if(option.url){
-                pathLoad.push(load(option.url, option))
+                option.url = "1/" + (option.prefix || "rgn") + "/" + option.url
+                console.log(option.url)
+                pathLoad.push(TMS.getTMS(option.url, "utf8"))
+
             }else{
                 pathLoad.push("");
             }

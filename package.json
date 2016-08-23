@@ -1,6 +1,6 @@
 {
   "name": "mat-tms",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/matjs/mat-tms.git"
@@ -13,8 +13,9 @@
   "author": "feiyelanghai@gmail.com",
   "homepage": "https://github.com/matjs/mat-tms",
   "dependencies": {
+    "@ali/filesync-client": "^3.1.0",
     "debug": "2.2.0",
-    "midway-tms": "0.10.2",
+    "iconv-lite": "^0.4.13",
     "named-regexp": "0.1.1",
     "thunkify": "2.1.2"
   },

@@ -19,7 +19,7 @@ app.use(view_tms());
 
 app.use(function* (next) {
 
-  this.body = "111<!--TMS:rgn/tb-fp/2014/mm/atb/index/floor-nav-v2.php,gbk,1:TMS--><br />222<div></div><!--TMS:mm/footer.php,gbk,1:TMS-->3333"
+  this.body = '111<!--TMS:rgn/tb-fp/2014/aitaobao/2-0/index/new-floor.php,gbk,1:TMS--> <br />222<div></div><!--TMS:mm/footer.php,gbk,1:TMS-->3333 <br /> {{tms("atb/h5_db12dumiao.html","alp")}}'
 });
 
 app.listen(3000);
